@@ -65,12 +65,12 @@ export default function ProductsPage() {
   const hasActiveFilters = filters.category || filters.minPrice || filters.maxPrice;
 
   return (
-    <div className="p-10">
+    <div className="p-4 sm:p-6 md:p-8 lg:p-10">
       {/* Header */}
-      <div className="mb-7 flex items-start justify-between">
+      <div className="mb-6 flex flex-wrap items-start justify-between gap-3 md:mb-7">
         <div>
           <h1
-            className="mb-1 text-[28px] font-extrabold text-[var(--color-text-primary)]"
+            className="mb-1 text-2xl font-extrabold text-[var(--color-text-primary)] lg:text-[28px]"
             style={{ fontFamily: "var(--font-display)" }}
           >
             Products
@@ -81,7 +81,7 @@ export default function ProductsPage() {
         </div>
         <button
           onClick={() => setModalProduct(null)}
-          className="flex cursor-pointer items-center gap-2 rounded-[10px] border-none px-5 py-[11px] text-sm font-semibold text-white transition-all duration-150 hover:-translate-y-px hover:shadow-[0_6px_20px_rgba(108,99,255,0.4)]"
+          className="flex cursor-pointer items-center gap-2 rounded-[10px] border-none px-4 py-[10px] text-sm font-semibold text-white transition-all duration-150 hover:-translate-y-px hover:shadow-[0_6px_20px_rgba(108,99,255,0.4)] sm:px-5 sm:py-[11px]"
           style={{
             background: "linear-gradient(135deg, var(--color-accent), #8b5cf6)",
             boxShadow: "0 4px 16px rgba(108,99,255,0.3)",
@@ -93,8 +93,8 @@ export default function ProductsPage() {
         </button>
       </div>
 
-      {/* Search + Filter bar */}
-      <div className="mb-4 flex gap-2.5">
+      {/* Search + Filter bar — stacks on mobile */}
+      <div className="mb-4 flex flex-col gap-2.5 sm:flex-row">
         {/* Search */}
         <div className="relative flex-1">
           <Search
@@ -111,50 +111,52 @@ export default function ProductsPage() {
           />
         </div>
 
-        {/* Category quick filter */}
-        <select
-          value={filters.category}
-          onChange={(e) => setCategory(e.target.value)}
-          className={`${inputBaseCls} min-w-[160px] cursor-pointer px-3.5 py-[11px]`}
-          style={{
-            color: filters.category ? "var(--color-text-primary)" : "var(--color-text-muted)",
-            fontFamily: "var(--font-body)",
-          }}
-        >
-          <option value="" style={{ background: "#111118", color: "#8888aa" }}>
-            All Categories
-          </option>
-          {categories.map((c) => (
-            <option key={c} value={c} style={{ background: "#111118", color: "#f0f0ff" }}>
-              {c}
+        <div className="flex gap-2.5">
+          {/* Category quick filter */}
+          <select
+            value={filters.category}
+            onChange={(e) => setCategory(e.target.value)}
+            className={`${inputBaseCls} flex-1 cursor-pointer px-3.5 py-[11px] sm:flex-none sm:min-w-[160px]`}
+            style={{
+              color: filters.category ? "var(--color-text-primary)" : "var(--color-text-muted)",
+              fontFamily: "var(--font-body)",
+            }}
+          >
+            <option value="" style={{ background: "#111118", color: "#8888aa" }}>
+              All Categories
             </option>
-          ))}
-        </select>
+            {categories.map((c) => (
+              <option key={c} value={c} style={{ background: "#111118", color: "#f0f0ff" }}>
+                {c}
+              </option>
+            ))}
+          </select>
 
-        {/* Advanced filters toggle */}
-        <button
-          onClick={() => setShowFilters((v) => !v)}
-          className="flex cursor-pointer items-center gap-1.5 rounded-[10px] px-4 py-[11px] text-sm font-medium transition-all duration-150"
-          style={{
-            border: `1px solid ${hasActiveFilters ? "var(--color-accent)" : "var(--color-border)"}`,
-            background: hasActiveFilters ? "rgba(108,99,255,0.1)" : "var(--color-surface)",
-            color: hasActiveFilters ? "var(--color-accent)" : "var(--color-text-secondary)",
-            fontFamily: "var(--font-display)",
-          }}
-        >
-          <SlidersHorizontal size={15} />
-          Filters
-          {hasActiveFilters && (
-            <span className="flex h-[18px] w-[18px] items-center justify-center rounded-full bg-[var(--color-accent)] text-[10px] font-bold text-white">
-              {[filters.category, filters.minPrice, filters.maxPrice].filter(Boolean).length}
-            </span>
-          )}
-        </button>
+          {/* Advanced filters toggle */}
+          <button
+            onClick={() => setShowFilters((v) => !v)}
+            className="flex shrink-0 cursor-pointer items-center gap-1.5 rounded-[10px] px-4 py-[11px] text-sm font-medium transition-all duration-150"
+            style={{
+              border: `1px solid ${hasActiveFilters ? "var(--color-accent)" : "var(--color-border)"}`,
+              background: hasActiveFilters ? "rgba(108,99,255,0.1)" : "var(--color-surface)",
+              color: hasActiveFilters ? "var(--color-accent)" : "var(--color-text-secondary)",
+              fontFamily: "var(--font-display)",
+            }}
+          >
+            <SlidersHorizontal size={15} />
+            <span className="hidden sm:inline">Filters</span>
+            {hasActiveFilters && (
+              <span className="flex h-[18px] w-[18px] items-center justify-center rounded-full bg-[var(--color-accent)] text-[10px] font-bold text-white">
+                {[filters.category, filters.minPrice, filters.maxPrice].filter(Boolean).length}
+              </span>
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Advanced filter panel */}
       {showFilters && (
-        <div className="animate-fade-in mb-4 flex items-end gap-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
+        <div className="animate-fade-in mb-4 flex flex-wrap items-end gap-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4 sm:p-5">
           <div>
             <label className="mb-1.5 block text-[11px] font-medium uppercase tracking-[0.05em] text-[var(--color-text-muted)]">
               Min Price
@@ -199,131 +201,133 @@ export default function ProductsPage() {
         </div>
       )}
 
-      {/* Table */}
+      {/* Table with horizontal scroll on mobile */}
       <div className="overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]">
-        <table className="w-full border-collapse text-[13px]">
-          <thead>
-            <tr className="border-b border-[var(--color-border)]">
-              {(
-                [
-                  { label: "Name", field: "name" as SortField },
-                  { label: "Category", field: "category" as SortField },
-                  { label: "Price", field: "price" as SortField },
-                  { label: "Stock", field: "stock" as SortField },
-                  { label: "Actions", field: null },
-                ] as { label: string; field: SortField | null }[]
-              ).map(({ label, field }) => (
-                <th
-                  key={label}
-                  onClick={() => field && toggleSort(field)}
-                  className="select-none whitespace-nowrap px-5 py-3.5 text-left text-[11px] font-semibold uppercase tracking-[0.06em] transition-colors duration-150"
-                  style={{
-                    color: field && filters.sortField === field ? "var(--color-accent)" : "var(--color-text-muted)",
-                    cursor: field ? "pointer" : "default",
-                    fontFamily: "var(--font-display)",
-                  }}
-                >
-                  <div className="flex items-center gap-1.5">
-                    {label}
-                    {field && <SortIcon field={field} />}
-                  </div>
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {loading ? (
-              [...Array(6)].map((_, i) => (
-                <tr key={i} className="border-b border-[var(--color-border)]">
-                  {[...Array(5)].map((_, j) => (
-                    <td key={j} className="px-5 py-4">
-                      <div
-                        className="skeleton h-3.5"
-                        style={{ width: j === 4 ? "60px" : "80%" }}
-                      />
-                    </td>
-                  ))}
-                </tr>
-              ))
-            ) : paginated.length === 0 ? (
-              <tr>
-                <td colSpan={5} className="py-[60px] text-center text-[var(--color-text-muted)]">
-                  <Package size={32} className="mx-auto mb-3 opacity-30" />
-                  No products found
-                </td>
-              </tr>
-            ) : (
-              paginated.map((product, i) => (
-                <tr
-                  key={product.id}
-                  className="animate-fade-in border-b border-[var(--color-border)] transition-colors duration-[120ms] last:border-none hover:bg-[var(--color-surface-2)]"
-                  style={{
-                    animationDelay: `${i * 30}ms`,
-                    animationFillMode: "both",
-                  }}
-                >
-                  <td className="px-5 py-3.5">
-                    <span className="font-medium text-[var(--color-text-primary)]">
-                      {product.name}
-                    </span>
-                  </td>
-                  <td className="px-5 py-3.5">
-                    <span className="inline-flex rounded-full border border-[rgba(108,99,255,0.2)] bg-[rgba(108,99,255,0.1)] px-2.5 py-0.5 text-[11px] font-medium text-[var(--color-accent)]">
-                      {product.category}
-                    </span>
-                  </td>
-                  <td className="px-5 py-3.5">
-                    <span
-                      className="font-semibold text-[var(--color-accent-3)]"
-                      style={{ fontFamily: "var(--font-display)" }}
-                    >
-                      {formatRupiah(product.price)}
-                    </span>
-                  </td>
-                  <td className="px-5 py-3.5">
-                    <span
-                      style={{
-                        color: product.stock < 10
-                          ? "var(--color-accent-2)"
-                          : product.stock < 30
-                          ? "#f093fb"
-                          : "var(--color-text-secondary)",
-                        fontWeight: product.stock < 10 ? 600 : 400,
-                      }}
-                    >
-                      {product.stock}
-                      {product.stock < 10 && (
-                        <span className="ml-1 text-[10px] opacity-80">⚠️</span>
-                      )}
-                    </span>
-                  </td>
-                  <td className="px-5 py-3.5">
-                    <div className="flex gap-1.5">
-                      <button
-                        onClick={() => setModalProduct(product)}
-                        className="flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-[7px] border border-[rgba(108,99,255,0.2)] bg-[rgba(108,99,255,0.08)] text-[#6c63ff] transition-all duration-150 hover:border-[rgba(108,99,255,0.5)] hover:bg-[rgba(108,99,255,0.2)]"
-                        title="Edit"
-                      >
-                        <Pencil size={13} />
-                      </button>
-                      <button
-                        onClick={() => setDeleteProduct(product)}
-                        className="flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-[7px] border border-[rgba(255,101,132,0.2)] bg-[rgba(255,101,132,0.08)] text-[#ff6584] transition-all duration-150 hover:border-[rgba(255,101,132,0.5)] hover:bg-[rgba(255,101,132,0.2)]"
-                        title="Delete"
-                      >
-                        <Trash2 size={13} />
-                      </button>
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse text-[13px]">
+            <thead>
+              <tr className="border-b border-[var(--color-border)]">
+                {(
+                  [
+                    { label: "Name", field: "name" as SortField },
+                    { label: "Category", field: "category" as SortField },
+                    { label: "Price", field: "price" as SortField },
+                    { label: "Stock", field: "stock" as SortField },
+                    { label: "Actions", field: null },
+                  ] as { label: string; field: SortField | null }[]
+                ).map(({ label, field }) => (
+                  <th
+                    key={label}
+                    onClick={() => field && toggleSort(field)}
+                    className="select-none whitespace-nowrap px-4 py-3.5 text-left text-[11px] font-semibold uppercase tracking-[0.06em] transition-colors duration-150 sm:px-5"
+                    style={{
+                      color: field && filters.sortField === field ? "var(--color-accent)" : "var(--color-text-muted)",
+                      cursor: field ? "pointer" : "default",
+                      fontFamily: "var(--font-display)",
+                    }}
+                  >
+                    <div className="flex items-center gap-1.5">
+                      {label}
+                      {field && <SortIcon field={field} />}
                     </div>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {loading ? (
+                [...Array(6)].map((_, i) => (
+                  <tr key={i} className="border-b border-[var(--color-border)]">
+                    {[...Array(5)].map((_, j) => (
+                      <td key={j} className="px-4 py-4 sm:px-5">
+                        <div
+                          className="skeleton h-3.5"
+                          style={{ width: j === 4 ? "60px" : "80%" }}
+                        />
+                      </td>
+                    ))}
+                  </tr>
+                ))
+              ) : paginated.length === 0 ? (
+                <tr>
+                  <td colSpan={5} className="py-[60px] text-center text-[var(--color-text-muted)]">
+                    <Package size={32} className="mx-auto mb-3 opacity-30" />
+                    No products found
                   </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+              ) : (
+                paginated.map((product, i) => (
+                  <tr
+                    key={product.id}
+                    className="animate-fade-in border-b border-[var(--color-border)] transition-colors duration-[120ms] last:border-none hover:bg-[var(--color-surface-2)]"
+                    style={{
+                      animationDelay: `${i * 30}ms`,
+                      animationFillMode: "both",
+                    }}
+                  >
+                    <td className="px-4 py-3.5 sm:px-5">
+                      <span className="font-medium text-[var(--color-text-primary)]">
+                        {product.name}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3.5 sm:px-5">
+                      <span className="inline-flex rounded-full border border-[rgba(108,99,255,0.2)] bg-[rgba(108,99,255,0.1)] px-2.5 py-0.5 text-[11px] font-medium text-[var(--color-accent)]">
+                        {product.category}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3.5 sm:px-5">
+                      <span
+                        className="font-semibold text-[var(--color-accent-3)]"
+                        style={{ fontFamily: "var(--font-display)" }}
+                      >
+                        {formatRupiah(product.price)}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3.5 sm:px-5">
+                      <span
+                        style={{
+                          color: product.stock < 10
+                            ? "var(--color-accent-2)"
+                            : product.stock < 30
+                            ? "#f093fb"
+                            : "var(--color-text-secondary)",
+                          fontWeight: product.stock < 10 ? 600 : 400,
+                        }}
+                      >
+                        {product.stock}
+                        {product.stock < 10 && (
+                          <span className="ml-1 text-[10px] opacity-80">⚠️</span>
+                        )}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3.5 sm:px-5">
+                      <div className="flex gap-1.5">
+                        <button
+                          onClick={() => setModalProduct(product)}
+                          className="flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-[7px] border border-[rgba(108,99,255,0.2)] bg-[rgba(108,99,255,0.08)] text-[#6c63ff] transition-all duration-150 hover:border-[rgba(108,99,255,0.5)] hover:bg-[rgba(108,99,255,0.2)]"
+                          title="Edit"
+                        >
+                          <Pencil size={13} />
+                        </button>
+                        <button
+                          onClick={() => setDeleteProduct(product)}
+                          className="flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-[7px] border border-[rgba(255,101,132,0.2)] bg-[rgba(255,101,132,0.08)] text-[#ff6584] transition-all duration-150 hover:border-[rgba(255,101,132,0.5)] hover:bg-[rgba(255,101,132,0.2)]"
+                          title="Delete"
+                        >
+                          <Trash2 size={13} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="flex items-center justify-between border-t border-[var(--color-border)] px-5 py-3.5">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[var(--color-border)] px-4 py-3.5 sm:px-5">
             <span className="text-xs text-[var(--color-text-muted)]">
               Showing {(page - 1) * PAGE_SIZE + 1}–{Math.min(page * PAGE_SIZE, products.length)} of {products.length}
             </span>

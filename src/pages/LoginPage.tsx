@@ -37,13 +37,13 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="relative flex min-h-screen overflow-hidden bg-[var(--color-bg)]">
+    <div className="relative flex min-h-screen flex-col overflow-hidden bg-[var(--color-bg)] md:flex-row">
       {/* Background decorative blobs */}
       <div className="pointer-events-none absolute -left-[120px] -top-[120px] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle,rgba(108,99,255,0.12)_0%,transparent_70%)]" />
       <div className="pointer-events-none absolute -bottom-[100px] -right-[100px] h-[400px] w-[400px] rounded-full bg-[radial-gradient(circle,rgba(255,101,132,0.08)_0%,transparent_70%)]" />
 
-      {/* Left panel - branding */}
-      <div className="relative flex flex-1 flex-col justify-center border-r border-[var(--color-border)] px-20 py-[60px]">
+      {/* Left panel - branding (hidden on mobile) */}
+      <div className="relative hidden flex-1 flex-col justify-center border-r border-[var(--color-border)] px-20 py-[60px] md:flex">
         {/* Logo */}
         <div className="mb-12 flex items-center gap-3">
           <div className="flex h-[42px] w-[42px] items-center justify-center rounded-xl bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-2)] shadow-[0_0_24px_rgba(108,99,255,0.4)]">
@@ -89,7 +89,20 @@ export default function LoginPage() {
       </div>
 
       {/* Right panel - login form */}
-      <div className="flex w-[480px] shrink-0 flex-col justify-center px-12 py-[60px]">
+      <div className="relative z-10 flex w-full flex-col justify-center px-6 py-10 sm:px-12 sm:py-[60px] md:w-[480px] md:shrink-0">
+        {/* Mobile logo (only visible on mobile) */}
+        <div className="mb-8 flex items-center gap-3 md:hidden">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-2)]">
+            <Zap size={18} color="white" />
+          </div>
+          <span
+            className="text-lg font-extrabold text-[var(--color-text-primary)]"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
+            PRODASH
+          </span>
+        </div>
+
         <div className="mb-9">
           <h2
             className="mb-2 text-[26px] font-bold text-[var(--color-text-primary)]"

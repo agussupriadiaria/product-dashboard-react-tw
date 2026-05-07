@@ -48,19 +48,19 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="p-10">
+      <div className="p-4 sm:p-6 lg:p-10">
         <div
           className="mb-2 text-[28px] font-extrabold"
           style={{ fontFamily: "var(--font-display)" }}
         >
           Dashboard
         </div>
-        <div className="mb-8 grid grid-cols-4 gap-4">
+        <div className="mb-8 grid grid-cols-2 gap-3 md:grid-cols-4">
           {[...Array(4)].map((_, i) => (
             <div key={i} className="skeleton h-[120px]" />
           ))}
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="skeleton h-[320px]" />
           <div className="skeleton h-[320px]" />
         </div>
@@ -69,11 +69,11 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="p-10">
+    <div className="p-4 sm:p-6 md:p-8 lg:p-10">
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-6 md:mb-8">
         <h1
-          className="mb-1 text-[28px] font-extrabold text-[var(--color-text-primary)]"
+          className="mb-1 text-2xl font-extrabold text-[var(--color-text-primary)] lg:text-[28px]"
           style={{ fontFamily: "var(--font-display)" }}
         >
           Overview
@@ -83,8 +83,8 @@ export default function DashboardPage() {
         </p>
       </div>
 
-      {/* Stat cards */}
-      <div className="mb-8 grid grid-cols-4 gap-4">
+      {/* Stat cards — 2 cols on mobile, 4 on tablet+ */}
+      <div className="mb-6 grid grid-cols-2 gap-3 md:mb-8 md:grid-cols-4 md:gap-4">
         <StatCard
           label="Total Products"
           value={stats?.totalProducts ?? 0}
@@ -115,10 +115,10 @@ export default function DashboardPage() {
         />
       </div>
 
-      {/* Charts */}
-      <div className="grid gap-5" style={{ gridTemplateColumns: "1.4fr 1fr" }}>
+      {/* Charts — 1 col on mobile, 2 on tablet+ */}
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         {/* Bar Chart */}
-        <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+        <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4 sm:p-6">
           <h3
             className="mb-1 text-[15px] font-bold text-[var(--color-text-primary)]"
             style={{ fontFamily: "var(--font-display)" }}
@@ -157,7 +157,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Pie Chart */}
-        <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+        <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4 sm:p-6">
           <h3
             className="mb-1 text-[15px] font-bold text-[var(--color-text-primary)]"
             style={{ fontFamily: "var(--font-display)" }}
@@ -208,7 +208,7 @@ export default function DashboardPage() {
 
       {/* Category table */}
       <div className="mt-5 overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]">
-        <div className="px-6 pb-4 pt-5">
+        <div className="px-4 pb-4 pt-5 sm:px-6">
           <h3
             className="m-0 text-[15px] font-bold text-[var(--color-text-primary)]"
             style={{ fontFamily: "var(--font-display)" }}
@@ -216,45 +216,47 @@ export default function DashboardPage() {
             Category Breakdown
           </h3>
         </div>
-        <table className="w-full border-collapse text-[13px]">
-          <thead>
-            <tr className="border-y border-[var(--color-border)]">
-              {["Category", "Products", "Inventory Value"].map((h) => (
-                <th
-                  key={h}
-                  className="px-6 py-2.5 text-left text-[11px] font-semibold uppercase tracking-[0.06em] text-[var(--color-text-muted)]"
-                  style={{ fontFamily: "var(--font-display)" }}
-                >
-                  {h}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {(stats?.categories ?? []).map((cat, i) => (
-              <tr
-                key={cat.category}
-                className="border-b border-[var(--color-border)] transition-colors duration-150 last:border-none hover:bg-[var(--color-surface-2)]"
-              >
-                <td className="px-6 py-3">
-                  <div className="flex items-center gap-2.5">
-                    <div
-                      className="h-2 w-2 shrink-0 rounded-full"
-                      style={{ background: CHART_COLORS[i % CHART_COLORS.length] }}
-                    />
-                    <span className="font-medium text-[var(--color-text-primary)]">
-                      {cat.category}
-                    </span>
-                  </div>
-                </td>
-                <td className="px-6 py-3 text-[var(--color-text-secondary)]">{cat.count}</td>
-                <td className="px-6 py-3 font-medium text-[var(--color-accent-3)]">
-                  {formatRupiah(cat.totalValue)}
-                </td>
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse text-[13px]">
+            <thead>
+              <tr className="border-y border-[var(--color-border)]">
+                {["Category", "Products", "Inventory Value"].map((h) => (
+                  <th
+                    key={h}
+                    className="px-4 py-2.5 text-left text-[11px] font-semibold uppercase tracking-[0.06em] text-[var(--color-text-muted)] sm:px-6"
+                    style={{ fontFamily: "var(--font-display)" }}
+                  >
+                    {h}
+                  </th>
+                ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {(stats?.categories ?? []).map((cat, i) => (
+                <tr
+                  key={cat.category}
+                  className="border-b border-[var(--color-border)] transition-colors duration-150 last:border-none hover:bg-[var(--color-surface-2)]"
+                >
+                  <td className="px-4 py-3 sm:px-6">
+                    <div className="flex items-center gap-2.5">
+                      <div
+                        className="h-2 w-2 shrink-0 rounded-full"
+                        style={{ background: CHART_COLORS[i % CHART_COLORS.length] }}
+                      />
+                      <span className="font-medium text-[var(--color-text-primary)]">
+                        {cat.category}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-4 py-3 text-[var(--color-text-secondary)] sm:px-6">{cat.count}</td>
+                  <td className="px-4 py-3 font-medium text-[var(--color-accent-3)] sm:px-6">
+                    {formatRupiah(cat.totalValue)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
