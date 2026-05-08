@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useState, type SubmitEvent } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Eye, EyeOff, Zap, Loader2 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
@@ -15,7 +15,8 @@ export default function LoginPage() {
   const location = useLocation();
 
   const from =
-    (location.state as { from?: { pathname: string } } | null)?.from?.pathname ?? "/dashboard";
+    (location.state as { from?: { pathname: string } } | null)?.from
+      ?.pathname ?? "/dashboard";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,7 +24,7 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: SubmitEvent) => {
     e.preventDefault();
     setError(null);
     setLoading(true);
@@ -68,7 +69,8 @@ export default function LoginPage() {
           </span>
         </h1>
         <p className="m-0 max-w-[360px] text-[15px] leading-relaxed text-[var(--color-text-muted)]">
-          Kelola produk, pantau statistik, dan analisa inventori — semua dalam satu tempat.
+          Kelola produk, pantau statistik, dan analisa inventori — semua dalam
+          satu tempat.
         </p>
 
         {/* Feature list */}
@@ -82,7 +84,9 @@ export default function LoginPage() {
               <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-[rgba(67,233,123,0.3)] bg-[rgba(67,233,123,0.15)]">
                 <div className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent-3)]" />
               </div>
-              <span className="text-[13px] text-[var(--color-text-secondary)]">{f}</span>
+              <span className="text-[13px] text-[var(--color-text-secondary)]">
+                {f}
+              </span>
             </div>
           ))}
         </div>
