@@ -6,6 +6,7 @@ import LoginPage from "@/pages/LoginPage";
 import DashboardPage from "@/pages/DashboardPage";
 import ProductsPage from "@/pages/ProductsPage";
 import { NotFoundPage } from "@/pages/NotFoundPage";
+import TestingPage from "@/pages/TestingPage";
 
 export default function App() {
   return (
@@ -13,7 +14,7 @@ export default function App() {
       <Routes>
         {/* Public */}
         <Route path="/login" element={<LoginPage />} />
-
+        <Route path="/testing" element={<TestingPage />} />
         {/* Protected */}
         <Route
           path="/"

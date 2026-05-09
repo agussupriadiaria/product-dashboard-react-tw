@@ -1,4 +1,4 @@
-# 🚀 PRODASH — Product Dashboard aja
+# 🚀 PRODASH — Product Dashboard
 
 Dashboard manajemen produk modern dengan custom auth, Supabase, React, dan Recharts.
 
@@ -37,11 +37,8 @@ Ini akan membuat:
 - Tabel `products` + 40 seed data produk
 
 **Default login:**
-
-```
-Email    : admin@example.com
+Email : admin@example.com
 Password : admin123
-```
 
 ### 2. Tambah User Baru (via Supabase Dashboard)
 
